@@ -35,4 +35,10 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public boolean hasUserwithEmail(String email) {
+        
+        return userRepository.findFirstByEmail(email).isPresent();
+    }
+
 }

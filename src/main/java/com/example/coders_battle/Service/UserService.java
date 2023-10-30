@@ -6,5 +6,7 @@ import com.example.coders_battle.DTOs.UserDTO;
 public interface UserService {
 
     UserDTO createUser(SignupDTO signupDTO);
+
+    boolean hasUserwithEmail(String string);
     
 }
