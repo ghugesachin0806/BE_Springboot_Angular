@@ -23,7 +23,7 @@ public class WebSecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/sign-up") // Define a URL pattern for "/sign-up" that should be permitted
+                .requestMatchers("/sign-up","/authentication") // Define a URL pattern for "/sign-up" that should be permitted
                 .permitAll()
                 .anyRequest() // Match any other request
                 .authenticated()
