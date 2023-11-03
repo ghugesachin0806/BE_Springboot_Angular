@@ -25,7 +25,9 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/sign-up","/authentication") // Define a URL pattern for "/sign-up" that should be permitted
                 .permitAll()
-                .anyRequest() // Match any other request
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("")
                 .authenticated()
                 .and()
                 .sessionManagement()

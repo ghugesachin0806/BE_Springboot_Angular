@@ -1,7 +1,5 @@
 package com.example.coders_battle.DTOs;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 public class AuthenticationResponse {
 
@@ -18,7 +16,4 @@ public class AuthenticationResponse {
     public AuthenticationResponse(String jwtToken) {
         this.jwtToken = jwtToken;
     }
-
-    
-    
 }

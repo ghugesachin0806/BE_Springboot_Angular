@@ -1,7 +1,6 @@
 package com.example.coders_battle.Controllers;
 
 import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -45,6 +44,7 @@ public class AuthenticationController {
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(AuthenticationRequest.getEmail());
+
 
         final String jwt = jwtUtil.generateToken(userDetails);
 
