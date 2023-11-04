@@ -16,7 +16,7 @@ public class SignupController {
    @Autowired
    private UserService userService;
 
-   @PostMapping({ "/sign-up" })
+   @PostMapping({ "/signup" })
    public ResponseEntity<?> createUser(@RequestBody(required = true) SignupDTO SignupDTO) {
 
       if (userService.hasUserwithEmail(SignupDTO.getEmail()))

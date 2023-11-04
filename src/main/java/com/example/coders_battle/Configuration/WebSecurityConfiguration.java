@@ -18,12 +18,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception
+    {
         return security
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/sign-up","/authentication") // Define a URL pattern for "/sign-up" that should be permitted
+                .requestMatchers("/signup","/authentication")
                 .permitAll()
                 .and()
                 .authorizeHttpRequests()
@@ -37,13 +38,13 @@ public class WebSecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception
+    public PasswordEncoder passwordEncoder()
     {
-        return configuration.getAuthenticationManager();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }
