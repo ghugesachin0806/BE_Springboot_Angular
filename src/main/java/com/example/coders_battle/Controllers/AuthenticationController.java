@@ -30,10 +30,12 @@ public class AuthenticationController {
 
 
     @PostMapping("/authentication")
-    public AuthenticationResponse createAuthenticationToken (@RequestBody AuthenticationRequest AuthenticationRequest,HttpServletResponse response) throws IOException
+    public AuthenticationResponse createAuthenticationToken (@RequestBody AuthenticationRequest authenticationRequest,HttpServletResponse response) throws IOException
     {
+        System.out.println(authenticationRequest.getEmail()+" "+authenticationRequest.getPassword());
+
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(AuthenticationRequest.getEmail(),AuthenticationRequest.getPassword()));
+            // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
         } catch (BadCredentialsException e) {
 
             throw new BadCredentialsException("Incorrect Credentials");
@@ -43,10 +45,12 @@ public class AuthenticationController {
             return null; 
         }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(AuthenticationRequest.getEmail());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
+
+        System.out.println(userDetails.toString());
 
 
-        final String jwt = jwtUtil.generateToken(userDetails);
+        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
         return new AuthenticationResponse(jwt);
 
