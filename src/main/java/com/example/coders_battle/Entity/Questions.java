@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.example.coders_battle.DTOs.QuestionDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -46,4 +47,16 @@ public class Questions {
     @JsonIgnore
     private User user;
     
+    public QuestionDTO getQuestionDTO()
+    {
+        QuestionDTO questionDTO = new QuestionDTO();
+
+        questionDTO.setId(id);
+        questionDTO.setTitle(title);
+        questionDTO.setBody(body);
+        questionDTO.setTags(tags);
+        questionDTO.setUserId(user.getId());
+        questionDTO.setUsername(user.getName());
+        return questionDTO;
+    }
 }

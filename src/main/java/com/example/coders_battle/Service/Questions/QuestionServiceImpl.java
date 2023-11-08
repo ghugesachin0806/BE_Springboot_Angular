@@ -2,10 +2,16 @@ package com.example.coders_battle.Service.Questions;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.coders_battle.DTOs.AllQuestionResponseDto;
 import com.example.coders_battle.DTOs.QuestionDTO;
 import com.example.coders_battle.Entity.Questions;
 import com.example.coders_battle.Entity.User;
@@ -20,6 +26,8 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    public static final int SEARCH_RESULT_PER_PAGE=5;
 
     @Override
     public QuestionDTO addQuestion(QuestionDTO questionDTO) {
@@ -43,6 +51,21 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         return null;
+    }
+
+    @Override
+    public AllQuestionResponseDto getAllQuestions(int pageNumber) {
+        
+        Pageable paging = PageRequest.of(pageNumber, SEARCH_RESULT_PER_PAGE);
+        Page<Questions> questionspage = questionRepository.findAll(paging);
+
+        AllQuestionResponseDto allQuestionResponseDto = new AllQuestionResponseDto();
+        allQuestionResponseDto.setQuestionDTOList(questionspage.getContent().stream().map(Questions::getQuestionDTO).collect(Collectors.toList()));
+
+        allQuestionResponseDto.setPageNumber(questionspage.getPageable().getPageNumber());
+        allQuestionResponseDto.setTotalPges(questionspage.getTotalPages());
+
+        return allQuestionResponseDto;
     }
 
 }
