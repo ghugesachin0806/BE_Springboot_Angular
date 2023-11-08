@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.example.coders_battle.DTOs.SingleQuestionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -66,6 +67,14 @@ public class QuestionServiceImpl implements QuestionService {
         allQuestionResponseDto.setTotalPges(questionspage.getTotalPages());
 
         return allQuestionResponseDto;
+    }
+
+    @Override
+    public SingleQuestionDTO getQuestionById(Long questionId) {
+        Optional<Questions> optionalQuestions = questionRepository.findById(questionId);
+        SingleQuestionDTO singleQuestionDTO = new SingleQuestionDTO();
+        optionalQuestions.ifPresent(questions -> singleQuestionDTO.setQuestionDTO(questions.getQuestionDTO()));
+        return singleQuestionDTO;
     }
 
 }
