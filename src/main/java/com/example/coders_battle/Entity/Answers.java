@@ -1,10 +1,9 @@
 package com.example.coders_battle.Entity;
 
 import java.util.Date;
-import java.util.List;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import com.example.coders_battle.DTOs.QuestionDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,46 +14,32 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.Data;
-
 
 @Entity
 @Data
-@Table(name = "questions")
-public class Questions {
+public class Answers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-
     @Lob
-    @Column(name="body" ,length=512)
+    @Column(name = "body", length = 512)
     private String body;
 
     private Date createdDate;
 
-    private List<String> tags;
-
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name="user_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
-    
-    public QuestionDTO getQuestionDTO()
-    {
-        QuestionDTO questionDTO = new QuestionDTO();
 
-        questionDTO.setId(id);
-        questionDTO.setTitle(title);
-        questionDTO.setBody(body);
-        questionDTO.setTags(tags);
-        questionDTO.setCreatedDate(createdDate);
-        questionDTO.setUserId(user.getId());
-        questionDTO.setUsername(user.getName());
-        return questionDTO;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "question_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Questions question;
+
 }

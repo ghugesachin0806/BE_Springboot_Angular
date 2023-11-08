@@ -1,5 +1,6 @@
 package com.example.coders_battle.DTOs;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import lombok.Data;
@@ -14,5 +15,6 @@ public class QuestionDTO {
     private List<String> tags;
     private Long userId;
     private String username;
+    private Date createdDate;
 
 }
